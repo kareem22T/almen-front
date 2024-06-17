@@ -1,0 +1,58 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+    font-family: 'Lama Sans';
+    src: url('../fonts/lema/LamaSans-Light.woff2') format('woff2'),
+         url('../fonts/lema/LamaSans-Light.woff') format('woff');
+         font-weight: 300;
+         font-display: swap;
+         font-style: normal;
+  }  
+  
+  @font-face {
+    font-family: 'Lama Sans';
+    src: url('../fonts/lema/LamaSans-Regular.woff2') format('woff2'),
+         url('../fonts/lema/LamaSans-Regular.woff') format('woff');
+         font-weight: 400;
+         font-display: swap;
+         font-style: normal;
+  }   
+
+  @font-face {
+    font-family: 'Lama Sans';
+    src: url('../fonts/lema/LamaSans-Medium.woff2') format('woff2'),
+         url('../fonts/lema/LamaSans-Medium.woff') format('woff');
+         font-weight: 500;
+         font-display: swap;
+         font-style: normal;
+  }  
+
+  @font-face {
+    font-family: 'Lama Sans';
+    src: url('../fonts/lema/LamaSans-Bold.woff2') format('woff2'),
+         url('../fonts/lema/LamaSans-Bold.woff') format('woff');
+         font-weight: 700;
+         font-display: swap;
+         font-style: normal;
+  }  
+
+  @font-face {
+      font-family: 'Lama Sans';
+      src: url('../fonts/lema/LamaSans-Black.woff2') format('woff2'),
+      url('../fonts/lema/LamaSans-Black.woff') format('woff');
+      font-weight: 900;
+      font-display: swap;
+      font-style: normal;
+    }  
+
+@font-face {
+    font-family: 'Agharti';
+    src: url('../fonts/Agharti/Agharti-Bold.woff2') format('woff2'),
+        url('../fonts/Agharti/Agharti-Bold.woff') format('woff'),
+       url('../fonts/Agharti/Agharti-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-display: swap;
+        font-style: normal;
+}  
+  
+  
