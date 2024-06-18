@@ -14,7 +14,7 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   return loading ? (
