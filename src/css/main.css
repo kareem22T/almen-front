@@ -273,6 +273,7 @@ header .container .options .lang_btn {
 }
 
 .music_events .container .swiper .swiper-slide {
+    direction: ltr;
     height: 100%;
     background-color: white;
     opacity: .5;
@@ -682,7 +683,19 @@ margin: auto;
     text-align: center;
     z-index: 2;
 }
-.categories_wrapper >div img {
+.categories_wrapper >div svg *:not([stroke]) {
+    fill: #221f4a;
+}
+.categories_wrapper >div svg *:not([fill]) {
+    stroke: #221f4a;
+}
+.events_schedual .container .content .body .card .text .category svg *:not([stroke]) {
+    fill: #FFD86F;
+}
+.events_schedual .container .content .body .card .text .category svg *:not([fill]) {
+    stroke: #FFD86F;
+}
+.categories_wrapper >div svg {
     width: 64px;
     z-index: 2;
     margin-bottom: 40px;
@@ -728,6 +741,9 @@ margin: auto;
     color: #FFFFFF;
 }
 
+.categories .categories_wrapper a {
+    text-decoration: none;
+}
 .categories .categories_wrapper >div:hover {
     transform: translateY(-16px);
 }
@@ -741,7 +757,7 @@ margin: auto;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         margin-top: 72px;
     }
-    .categories_wrapper > div img {
+    .categories_wrapper > div svg {
         margin-bottom: 32px;
     }
     .categories_wrapper h2 {
@@ -780,7 +796,7 @@ margin: auto;
         margin-top: 64px;
         gap: 24px;
     }
-    .categories_wrapper > div img {
+    .categories_wrapper > div svg {
         margin-bottom: 24px;
     }
     .categories_wrapper h2 {
@@ -944,6 +960,7 @@ margin: auto;
     display: block;
     position: absolute;
     top: 0;
+    transition: all .2s ease-in-out;
     left: 0;
 }
 
@@ -962,6 +979,7 @@ margin: auto;
 
 .events_schedual .container .content .body .card {
     display: flex;
+    text-decoration: none;
     gap: 32px;
 }
 
@@ -992,7 +1010,7 @@ margin: auto;
     gap: 12px;
 }
 
-.events_schedual .container .content .body .card .text .category img{
+.events_schedual .container .content .body .card .text .category svg{
     width: 42px;
     object-fit: contain;
     height: auto;
@@ -1491,6 +1509,8 @@ span.mobile {
 
 .sponsors_section img {
     width: 135px;
+    height: 60px;
+    object-fit: contain;
 }
 
 .sponsors_section .sponsors_wrapper {

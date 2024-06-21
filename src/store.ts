@@ -2,8 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
+import homeReducer from './features/homeSlice';
+import categoryReducer from './features/categorySlice';
 
 const rootReducer = combineReducers({
+  home: homeReducer, 
+  categories: categoryReducer, 
 });
 
 const persistConfig = {

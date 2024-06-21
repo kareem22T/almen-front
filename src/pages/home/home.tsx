@@ -1,53 +1,32 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Navigation } from 'swiper/modules';
+
+// import required modules
+import { Navigation, Pagination } from 'swiper/modules';
+
 import React, { useRef, useEffect, useState } from 'react';
 
 import DefaultLayout from "../../layout/DefaultLayout";
 import heroImg from "./../../images/hero.jpeg"
-import slider1 from "./../../images/slider-1.jpeg"
-import slider2 from "./../../images/slider-2.jpeg"
-import slider3 from "./../../images/slider-3.jpeg"
-import sponsor1 from "./../../images/sponsor_1.png";
-import sponsor2 from "./../../images/sponsor_2.png";
-import sponsor3 from "./../../images/sponsor_3.png"; // Assuming sponsor_3.png exists
-import sponsor4 from "./../../images/sponsor_4.png"; // Assuming sponsor_4.png exists
-import sponsor5 from "./../../images/sponsor_5.png"; // Assuming sponsor_5.png exists
 import category1 from "./../../images/food-icon.png"
-import category2 from "./../../images/entertainment-icon.png"
-import category3 from "./../../images/Adventure-icon.png"
-import category4 from "./../../images/music-icon.png"
-import category5 from "./../../images/family-icon.png"
-import category6 from "./../../images/sports-icon.png"
 import catBg from "./../../images/Union(1).png"
 import foodU from "./../../images/U.png"
-import event1 from './../../images/event-1.png'
-import event2 from './../../images/event-2.jpeg'
-import event3 from './../../images/event-3.jpeg'
-import adventure from "./../../images/adventure.png"
-import music from "./../../images/music.png"
-import entertainment from "./../../images/entertainment.png"
-import restaurant1 from "./../../images/restaurant-1.jpeg"
-
-import spo1 from "./../../images/Frame.png"
-import spo2 from "./../../images/Frame-1.png"
-import spo3 from "./../../images/Frame-2.png"
-import spo4 from "./../../images/Frame-3.png"
-import spo5 from "./../../images/Frame-4.png"
-import spo6 from "./../../images/Frame-5.png"
-import spo7 from "./../../images/Frame-6.png"
-import spo8 from "./../../images/Frame-7.png"
-import spo9 from "./../../images/Frame-8.png"
-import spo10 from "./../../images/Frame-9.png"
-import spo11 from "./../../images/Frame-10.png"
-import spo12 from "./../../images/Frame-11.png"
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { getHomeData } from '../../features/homeSlice';
+import { API_URL } from '../../_env';
+import { getCategories } from '../../features/categorySlice';
 const Home = () => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const musicEventsRef = useRef<any>(null);
     const swiperRef = useRef<any>(null);
     const [openedRestaurant, setOpenedRestaurant] = useState([true, false, false, false])
+    const [selectedDay, setSelectedDay] = useState(0)
+    const [selectedRestaurant, setselectedRestaurant] = useState(0)
 
     const handleOpenRestCard = (index: number) => {
         let value = [false, false, false, false]
@@ -55,6 +34,16 @@ const Home = () => {
         setOpenedRestaurant(value)
 
     }
+    const dispatch = useDispatch<AppDispatch>();
+    const homeData = useSelector((state: RootState) => state.home.homeData);  
+    const categories = useSelector((state: RootState) => state.categories.categories);  
+    
+    useEffect(() => {
+        dispatch(getHomeData());
+        dispatch(getCategories());
+        
+      }, [dispatch]);
+  
     useEffect(() => {
         const handleSlideChange = () => {
             const swiper = swiperRef.current.swiper;
@@ -93,7 +82,7 @@ const Home = () => {
                         Alamein <br />
                         Festival Season
                     </h1>
-                    <a href="">
+                    <a href={homeData ? homeData.teaser_url : ""} target='_blanck'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-player-play" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M7 4v16l13 -8z" />
@@ -114,11 +103,9 @@ const Home = () => {
                 <div className="container events_wrapper">
                     <Swiper
                         ref={swiperRef}
-                        slidesPerView={4}
-                        centeredSlides={true}
-                        spaceBetween={0}
-                        grabCursor={true}
-                        initialSlide={2}
+                        dir='rtl'
+                        slidesPerView={3}
+                        loop={true}
                         className="mySwiper"
                         navigation={{
                             prevEl: prevRef.current,
@@ -134,35 +121,41 @@ const Home = () => {
                                 slidesPerView: 1, // you can adjust this if needed for smaller screens
                             },
                             992: {
-                                slidesPerView: 4,
+                                slidesPerView: 3,
                             },
                         }}
                         >
-                        <SwiperSlide>
-                            <img src={slider3} alt="" />
-                            <div className="text">
-                                <p>Amir Eid</p>
-                                <span>North Arena</span>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={slider2} alt="" />
-                            <div className="text">
-                                <p>Medhat Saleh</p>
-                                <span>North Arena</span>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={slider1} alt="" />
-                            <div className="text">
-                                <p>Omar Khairat</p>
-                                <span>North Arena</span>
-                            </div>
-                        </SwiperSlide>
+                        {
+                            (homeData && homeData.main_cat) && (
+                                homeData.main_cat.events?.map(item => (
+                                    <SwiperSlide>
+                                        <img src={API_URL + item.thumbnail} alt="" />
+                                        <div className="text">
+                                            <p>{item.title}</p>
+                                            <span>{item.location.title}</span>
+                                        </div>
+                                    </SwiperSlide>
+                                ))
+                            )
+                        }
+                        {
+                            (homeData && homeData.main_cat) && (
+                                homeData.main_cat.events?.map(item => (
+                                    <SwiperSlide className='hide'>
+                                        <img src={API_URL + item.thumbnail} alt="" />
+                                        <div className="text">
+                                            <p>{item.title}</p>
+                                            <span>{item.location.title}</span>
+                                        </div>
+                                    </SwiperSlide>
+                                ))
+                            )
+                        }
+                                                
                     </Swiper>
                     <div className="text_wrapper">
                         <div>
-                            <span>Music Events</span>
+                            <span>{homeData && homeData.main_cat ? homeData.main_cat.title : ''} Events</span>
                             <h1>DISCOVER <br />
                                 THIS SUMMER <br />
                                 EVENTS
@@ -171,7 +164,7 @@ const Home = () => {
                             Unique Events</p>
                         </div>
                         <div className="navigation">
-                            <button ref={nextRef} >
+                            <button ref={prevRef}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M5 12l14 0" />
@@ -179,7 +172,7 @@ const Home = () => {
                                 <path d="M5 12l6 -6" />
                                 </svg>
                             </button>
-                            <button ref={prevRef}>
+                            <button ref={nextRef} >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M5 12l14 0" />
@@ -193,21 +186,15 @@ const Home = () => {
                 <div className="container top_sposor_wrapper">
                     <h1>Amazing Sponsors</h1>
                     <div className="sponsors">
-                        <a href="">
-                            <img src={sponsor1} alt="sponsor 1" />
-                        </a>
-                        <a href="">
-                            <img src={sponsor2} alt="sponsor 2" />
-                        </a>
-                        <a href="">
-                            <img src={sponsor3} alt="sponsor 3" />
-                        </a>
-                        <a href="">
-                            <img src={sponsor4} alt="sponsor 4" />
-                        </a>
-                        <a href="">
-                            <img src={sponsor5} alt="sponsor 5" />
-                        </a>
+                    {
+                            (homeData && homeData.amazing_sponsors) && (
+                                homeData.amazing_sponsors?.map(item => (
+                                    <a href={item.link} target="_blank">
+                                        <img src={API_URL + item.image_path} alt="sponsor 1" />
+                                    </a>
+                                ))
+                            )
+                        }
                     </div>
                 </div>
             </section>
@@ -226,56 +213,25 @@ const Home = () => {
                                 <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.</p>
                             </div>
                         </div>
-                        <div>
-                            <img src={catBg} className="bg" />
-                            <div className="card_wrapper">
-                                <div className="head">
-                                    <img src={category2} alt="" />
-                                    <h2>Entertainment</h2>
-                                </div>
-                                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.</p>
-                            </div>
-                        </div>
-                        <div>
-                            <img src={catBg} className="bg" />
-                            <div className="card_wrapper">
-                                <div className="head">
-                                    <img src={category3} alt="" />
-                                    <h2>Adventure</h2>
-                                </div>
-                                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.</p>
-                            </div>
-                        </div>
-                        <div>
-                            <img src={catBg} className="bg" />
-                            <div className="card_wrapper">
-                                <div className="head">
-                                    <img src={category4} alt="" />
-                                    <h2>Music</h2>
-                                </div>
-                                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.</p>
-                            </div>
-                        </div>
-                        <div>
-                            <img src={catBg} className="bg" />
-                            <div className="card_wrapper">
-                                <div className="head">
-                                    <img src={category5} alt="" />
-                                    <h2>Family</h2>
-                                </div>
-                                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.</p>
-                            </div>
-                        </div>
-                        <div>
-                            <img src={catBg} className="bg" />
-                            <div className="card_wrapper">
-                                <div className="head">
-                                    <img src={category6} alt="" />
-                                    <h2>Sports</h2>
-                                </div>
-                                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.</p>
-                            </div>
-                        </div>
+                        {
+                            categories && (
+                                categories.map(item => (
+                                    <div key={item.id}>
+                                        <a href="">
+
+                                        <img src={catBg} className="bg" />
+                                        <div className="card_wrapper">
+                                            <div className="head">
+                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.svg_icon }} />
+                                                <h2>{item.title}</h2>
+                                            </div>
+                                            <p>{item.description}</p>
+                                        </div>
+                                        </a>
+                                    </div>
+                                ))
+                            )
+                        }
                     </div>
                 </div>
             </section>
@@ -296,80 +252,150 @@ const Home = () => {
                     </div>
                     <div className="content">
                         <div className="head">
-                            <button>
+                            <button onClick={() => setSelectedDay(0)}>
                                 <span>Today</span>
                                 <h2>
-                                    24
-                                    <span className="mobile">Aug, Mon</span>
-                                    <span>Aug, Monday</span>
+                                    {new Date().toLocaleDateString('en-US', { day: 'numeric'})
+}                                    <span className="mobile">{new Date().toLocaleDateString('en-US', { month: 'short', weekday: 'short' })}</span>
+                                    <span>{new Date().toLocaleDateString('en-US', { month: 'short'})}
+                                    , {new Date().toLocaleDateString('en-US', { weekday: 'long' })}</span>
                                 </h2>
                             </button>
-                            <button>
+                            <button onClick={() => setSelectedDay(1)}>
                                 <span>Tomorrow</span>
                                 <h2>
-                                    25
-                                    <span className="mobile">Aug, Tus</span>
-                                    <span>Aug, Tuesday</span>
+                                    {
+                                        (() => {
+                                            const today = new Date();
+                                            const tomorrow = new Date(today);
+                                            tomorrow.setDate(today.getDate() + 1);
+                                            return tomorrow.toLocaleDateString('en-US', { day: 'numeric' });
+                                        })()
+                                    }
+                                    <span className="mobile">
+                                        {
+                                            (() => {
+                                                const today = new Date();
+                                                const tomorrow = new Date(today);
+                                                tomorrow.setDate(today.getDate() + 1);
+                                                return tomorrow.toLocaleDateString('en-US', { month: 'short', weekday: 'short' });
+                                            })()
+                                        }
+                                    </span>
+                                    <span>
+                                        {
+                                            (() => {
+                                                const today = new Date();
+                                                const tomorrow = new Date(today);
+                                                tomorrow.setDate(today.getDate() + 1);
+                                                const month = tomorrow.toLocaleDateString('en-US', { month: 'short' });
+                                                const weekday = tomorrow.toLocaleDateString('en-US', { weekday: 'long' });
+                                                return `${month}, ${weekday}`;
+                                            })()
+                                        }
+                                    </span>
                                 </h2>
                             </button>
-                            <button>
+                            <button onClick={() => setSelectedDay(2)}>
                                 <span>Day After</span>
                                 <h2>
-                                    26
-                                    <span className="mobile">Aug, wed</span>
-                                    <span>Aug, Wednesday</span>
+                                    {
+                                        (() => {
+                                            const today = new Date();
+                                            const tomorrow = new Date(today);
+                                            tomorrow.setDate(today.getDate() + 2);
+                                            return tomorrow.toLocaleDateString('en-US', { day: 'numeric' });
+                                        })()
+                                    }
+                                    <span className="mobile">
+                                        {
+                                            (() => {
+                                                const today = new Date();
+                                                const tomorrow = new Date(today);
+                                                tomorrow.setDate(today.getDate() + 2);
+                                                return tomorrow.toLocaleDateString('en-US', { month: 'short', weekday: 'short' });
+                                            })()
+                                        }
+                                    </span>
+                                    <span>
+                                        {
+                                            (() => {
+                                                const today = new Date();
+                                                const tomorrow = new Date(today);
+                                                tomorrow.setDate(today.getDate() + 2);
+                                                const month = tomorrow.toLocaleDateString('en-US', { month: 'short' });
+                                                const weekday = tomorrow.toLocaleDateString('en-US', { weekday: 'long' });
+                                                return `${month}, ${weekday}`;
+                                            })()
+                                        }
+                                    </span>
                                 </h2>
                             </button>
                         </div>
                         <div className="line">
-                            <span></span>
+                            <span style={{left: (selectedDay * 33) + "%"}}></span>
                         </div>
                         <div className="body">
-                            <div className="card">
-                                <img src={event1} alt="" />
-                                <div className="text">
-                                    <h2>Paramotor</h2>
-                                    <p>Fly High Over the Stunning North Coastline
-                                    Unleash Your Adventurous Spirit.</p>
-                                    <div className="category">
-                                        <img src={adventure} alt="" />
+                        {
+                            selectedDay == 0 && (
+                                homeData?.today_events.map(item => (
+                                    <a href='' className="card">
+                                        <img src={API_URL + item.thumbnail} alt="" />
                                         <div className="text">
-                                            <p>Adventure</p>
-                                            <span>Musical Arena</span>
+                                            <h2>{item.title}</h2>
+                                            <p>{item.sub_title}</p>
+                                            <div className="category">
+                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <div className="text">
+                                                    <p>{item.event_categories[0].title}</p>
+                                                    <span>{item.location.title}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <img src={event2} alt="" />
-                                <div className="text">
-                                    <h2>Paramotor</h2>
-                                    <p>Fly High Over the Stunning North Coastline
-                                    Unleash Your Adventurous Spirit.</p>
-                                    <div className="category">
-                                        <img src={entertainment} alt="" />
+                                    </a>
+                                ))
+                            )
+                        }
+                        {
+                            selectedDay == 1 && (
+                                homeData?.tomorrow_events.map(item => (
+                                    <a href='' className="card">
+                                        <img src={API_URL + item.thumbnail} alt="" />
                                         <div className="text">
-                                            <p>Entertainment</p>
-                                            <span>Musical Arena</span>
+                                            <h2>{item.title}</h2>
+                                            <p>{item.sub_title}</p>
+                                            <div className="category">
+                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <div className="text">
+                                                    <p>{item.event_categories[0].title}</p>
+                                                    <span>{item.location.title}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <img src={event3} alt="" />
-                                <div className="text">
-                                    <h2>Omar Khairat</h2>
-                                    <p>Fly High Over the Stunning North Coastline
-                                    Unleash Your Adventurous Spirit.</p>
-                                    <div className="category">
-                                        <img src={music} alt="" />
+                                    </a>
+                                ))
+                            )
+                        }
+                        {
+                            selectedDay == 2 && (
+                                homeData?.upcoming_events.map(item => (
+                                    <a href='' className="card">
+                                        <img src={API_URL + item.thumbnail} alt="" />
                                         <div className="text">
-                                            <p>Music</p>
-                                            <span>Musical Arena</span>
+                                            <h2>{item.title}</h2>
+                                            <p>{item.sub_title}</p>
+                                            <div className="category">
+                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <div className="text">
+                                                    <p>{item.event_categories[0].title}</p>
+                                                    <span>{item.location.title}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </a>
+                                ))
+                            )
+                        }
                         </div>
                     </div>
                 </div>
@@ -379,58 +405,26 @@ const Home = () => {
                     <span>CHECK</span>
                     <h1>DISCOVER RESTAURANT</h1>
                     <div className="restaurants_wrapper">
-                        <div className={"card " + (openedRestaurant[0] ? "open" : "")} onClick={() => handleOpenRestCard(0)}>
-                            <div>
-                                <img src={restaurant1} alt="" />
-                                <div className="title">
-                                    <h2>The Beach Grill</h2>
-                                    <h3>Lebanese</h3>
-                                </div>
-                            </div>
-                            <p>
-                                This relaxed, open-air beach grill serves an array of Lebanese cuisine with an emphasis on fresh seafood. The menu includes snacks, salads, seafood and grills, with locally sourced ingredients that are cooked right in front of you.
-                            </p>
-                            <a href="">Reservation</a>
-                        </div>
-                        <div className={"card " + (openedRestaurant[1] ? "open" : "")} onClick={() => handleOpenRestCard(1)}>
-                            <div>
-                                <img src={restaurant1} alt="" />
-                                <div className="title">
-                                    <h2>The Beach Grill</h2>
-                                    <h3>Lebanese</h3>
-                                </div>
-                            </div>
-                            <p>
-                                This relaxed, open-air beach grill serves an array of Lebanese cuisine with an emphasis on fresh seafood. The menu includes snacks, salads, seafood and grills, with locally sourced ingredients that are cooked right in front of you.
-                            </p>
-                            <a href="">Reservation</a>
-                        </div>
-                        <div className={"card " + (openedRestaurant[2] ? "open" : "")} onClick={() => handleOpenRestCard(2)}>
-                            <div>
-                                <img src={restaurant1} alt="" />
-                                <div className="title">
-                                    <h2>The Beach Grill</h2>
-                                    <h3>Lebanese</h3>
-                                </div>
-                            </div>
-                            <p>
-                                This relaxed, open-air beach grill serves an array of Lebanese cuisine with an emphasis on fresh seafood. The menu includes snacks, salads, seafood and grills, with locally sourced ingredients that are cooked right in front of you.
-                            </p>
-                            <a href="">Reservation</a>
-                        </div>
-                        <div className={"card " + (openedRestaurant[3] ? "open" : "")} onClick={() => handleOpenRestCard(3)}>
-                            <div>
-                                <img src={restaurant1} alt="" />
-                                <div className="title">
-                                    <h2>The Beach Grill</h2>
-                                    <h3>Lebanese</h3>
-                                </div>
-                            </div>
-                            <p>
-                                This relaxed, open-air beach grill serves an array of Lebanese cuisine with an emphasis on fresh seafood. The menu includes snacks, salads, seafood and grills, with locally sourced ingredients that are cooked right in front of you.
-                            </p>
-                            <a href="">Reservation</a>
-                        </div>
+                        {
+                            (homeData && homeData.main_restaurants) && (
+                                homeData.main_restaurants?.map((item, index) => (
+
+                                    <div className={"card " + (selectedRestaurant ==  index? "open" : "")} onClick={() => setselectedRestaurant(index)}>
+                                        <div>
+                                            <img src={API_URL + item.photo_path} alt="" />
+                                            <div className="title">
+                                                <h2>{item.title }</h2>
+                                                <h3>{item.sub_title}</h3>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            {item.description}
+                                        </p>
+                                        <a href="">Reservation</a>
+                                    </div>
+                                ))
+                            )
+                        }
                     </div>
                 </div>
             </section>
@@ -441,18 +435,15 @@ const Home = () => {
                     <p>Discover the amazing companies supporting your festival experience. 
                     See our Sponsors below!</p>
                     <div className="sponsors_wrapper">
-                        <img src={spo1} />
-                        <img src={spo2} />
-                        <img src={spo3} />
-                        <img src={spo4} />
-                        <img src={spo5} />
-                        <img src={spo6} />
-                        <img src={spo7} />
-                        <img src={spo8} />
-                        <img src={spo9} />
-                        <img src={spo10} />
-                        <img src={spo11} />
-                        <img src={spo12} />
+                        {
+                            (homeData && homeData.all_sponsors) && (
+                                homeData.all_sponsors?.map(item => (
+                                    <a href={item.link} target="_blank">
+                                        <img src={API_URL + item.image_path} alt="sponsor 1" />
+                                    </a>
+                                ))
+                            )
+                        }
                     </div>
                 </div>
             </section>
