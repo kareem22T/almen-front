@@ -47,8 +47,14 @@
     }
 }
 
+.music_events .container .swiper .swiper-slide .text {
+    left: auto;
+    right: 16px;
+
+}
 .music_events .container .swiper .swiper-slide {
-    direction: rtl;
+    direction: rtl !important;
+    text-align: right;
 }
 
 .ar .events_schedual .container .content .head button span {

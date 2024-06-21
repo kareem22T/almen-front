@@ -139,17 +139,17 @@ const Home = () => {
                                 <SwiperSlide key={item.item.id} className='hide'>
                                     {item.item.type === 'Event' ? (
                                         <>
-                                            <img src={API_URL + item.item.thumbnail } alt={item.item.title} />
+                                            <img src={API_URL + item.item.thumbnail } alt={translate(lang, item.item.title_ar, item.item.title)} />
                                             <div className="text">
-                                                <p>{item.item.title}</p>
-                                                <span>{item.item.location?.title}</span>
+                                                <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
+                                                <span>{translate(lang, item.item.location?.title_ar, item.item.location?.title)}</span>
                                             </div>
                                         </>
                                     ) : item.item.type === 'Ad' ? (
                                         <>
-                                            <img src={API_URL + item.item.photo_path} alt={item.item.title} />
+                                            <img src={API_URL + item.item.photo_path} alt={translate(lang, item.item.title_ar, item.item.title)} />
                                             <div className="text">
-                                                <p>{item.item.title}</p>
+                                                <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
                                             </div>
                                         </>
                                     ) : null}
