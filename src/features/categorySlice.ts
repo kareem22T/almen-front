@@ -9,7 +9,9 @@ type CategoryType = {
     thumbnail_path: string;
     cover_path: string;
     title: string;
+    title_ar: string;
     description: string;
+    description_ar: string;
     created_at: string;
     updated_at: string;
 };

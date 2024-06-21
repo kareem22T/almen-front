@@ -4,16 +4,20 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import homeReducer from './features/homeSlice';
 import categoryReducer from './features/categorySlice';
+import eventReducer from './features/eventSlice';
+import settingReducer from './features/settingSlice';
 
 const rootReducer = combineReducers({
   home: homeReducer, 
   categories: categoryReducer, 
+  events: eventReducer, 
+  settings: settingReducer, 
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [], // Persist only the auth slice
+  whitelist: ["settings"], // Persist only the auth slice
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

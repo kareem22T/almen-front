@@ -1,0 +1,56 @@
+.ar {
+    direction: rtl;
+}
+
+.ar * {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    letter-spacing: normal !important;
+}
+
+.ar .hero .container h1 {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-size: 68px;
+    line-height: 90px;
+}
+
+@media (max-width: 1399.98px) {
+    .ar .hero .container h1 {
+        font-size: 58px;
+        line-height: 85px;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .ar .hero .container h1 {
+        font-size: 52px;
+        line-height: 80px;
+    }
+}
+
+@media (max-width: 992.98px) {
+    .ar .hero .container h1 {
+        font-size: 48px;
+        line-height: 76px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .ar .hero .container h1 {
+        font-size: 41px;
+        line-height: 62px;
+    }
+}
+@media (max-width: 575.98px) {
+    .ar .hero .container h1 {
+        font-size: 30px;
+        line-height: 45px;
+    }
+}
+
+.music_events .container .swiper .swiper-slide {
+    direction: rtl;
+}
+
+.ar .events_schedual .container .content .head button span {
+    text-align: right;
+}

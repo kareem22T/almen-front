@@ -64,6 +64,11 @@ export type CategoryType = {
 };
 export type HomeDataType = {
     teaser_url: string;
+    google_play_url: string;
+    play_store_url: string;
+    facebook_url: string;
+    instagram_url: string;
+    linkedin_url: string;
     main_cat: MainCatType;
     amazing_sponsors: Array<{
         id: number;
@@ -149,7 +154,7 @@ export type HomeDataType = {
         title_ar: string;
         description: string;
         description_ar: string;
-        sub_title_ar: string | null;
+        sub_title_ar: string;
     }>;
     all_sponsors: Array<{
         id: number;

@@ -4,10 +4,14 @@ import Loader from './common/Loader';
 import Home from './pages/home/home';
 import "./css/fonts.css"
 import "./css/main.css"
+import "./css/main_ar.css"
+import { RootState } from './store';
+import { useSelector } from 'react-redux';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
+  const lang = useSelector((state: RootState) => state.settings.lang);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -16,6 +20,10 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 1000);
+  }, [lang]);
 
   return loading ? (
     <Loader />
