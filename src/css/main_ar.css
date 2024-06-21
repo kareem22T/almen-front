@@ -47,12 +47,12 @@
     }
 }
 
-.music_events .container .swiper .swiper-slide .text {
+.ar .music_events .container .swiper .swiper-slide .text {
     left: auto;
     right: 16px;
 
 }
-.music_events .container .swiper .swiper-slide {
+.ar .music_events .container .swiper .swiper-slide {
     direction: rtl !important;
     text-align: right;
 }
