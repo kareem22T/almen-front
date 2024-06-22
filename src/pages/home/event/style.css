@@ -337,3 +337,352 @@ margin-bottom: 32px;
     border-radius: 2px;
     color: #fff;
 }
+
+.related_events {
+    background-color: #060606;
+    padding: 80px 0;
+}
+
+.related_events .container {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 64px;
+}
+
+.related_events .container .card{
+    position: relative;
+    height: 500px;
+    transition: .2s ease-in all !important;
+    width: 310px;
+}
+.related_events .container .card::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(6, 6, 6, 0.342) 42.55%, #060606ee 93.65%);
+}
+.related_events .container .card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.related_events .container .date {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    min-width: 85px;
+    z-index: 2;
+    border: 1px solid #FFFFFF;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: .2s ease-in all !important;
+    gap: 4px;
+}
+.related_events .container .num {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 56px;
+
+}
+.related_events .container .card .text {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    padding: 0 24px;
+    transition: .2s ease-in all !important;
+}
+.related_events .container .card .text h2 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 38px;
+    margin-bottom: 16px;
+    color: #fff;
+}
+.related_events .container .card .text p {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 600;
+    color: #fff;
+}
+.related_events .container .card .hover {
+    opacity: 0;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+    background: #A52E62CC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: .5s ease-out all !important;
+}
+.related_events .container .card .hover .text {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px;
+    position: static;
+}
+
+.related_events .swiper  {
+    width: 100%;
+}
+
+.related_events .container .card .hover .starts {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 0 ;
+    
+}
+.related_events .container .card .hover a {
+    text-decoration: none;
+}
+.related_events .container .card .hover a:not(.text) {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 10px 20px;
+gap: 10px;
+width: max-content;
+margin: 0 24px 24px;
+text-decoration: none;/* White */
+background: #FFFFFF;
+border-radius: 2px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+font-size: 14px;
+font-weight: 700;
+line-height: 18px;
+color: #2956F3;
+
+}
+
+.related_events .container .card:hover .hover{
+    opacity: 1;
+}
+
+.related_events .container .card:hover >.text{
+    opacity: 0;
+}
+.related_events .container .card:hover >.date{
+    opacity: 0;
+}
+
+.related_events .container >.text {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-direction: column;
+    align-items: start;
+}
+.related_events .container >.text h1 {
+    /* Text */
+    
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px;
+    gap: 32px;
+    
+    /* Concerts Teals */
+    background: linear-gradient(90deg, #221F4A 19.37%, #A52E62 133.17%);
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+    /* or 117% */
+    
+    /* White */
+    color: #FFFFFF;
+    
+}
+.related_events .container >.text a {
+    /* Frame 1117 */
+    
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 10px;
+    
+    background: linear-gradient(90deg, #221F4A 19.37%, #A52E62 133.17%);
+    border-radius: 2px;
+    width: max-content;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.04em;
+    color: #fff;
+}
+.related_events .container >.text .navigation  {
+    display: flex;
+    gap: 16px;
+}
+.related_events .container >.text .navigation button svg {
+    stroke: white;
+}
+.related_events .container >.text .navigation button {
+    /* Arrow Right */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 50px;
+height: 50px;
+
+/* White */
+border: 1px solid #FFFFFF;
+background-color: transparent;
+border-radius: 50px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+}
+
+@media (max-width: 1199.98px) {
+    .related_events .container {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 34px;
+    }
+    .related_events .container > .text h1 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+        gap: 32px;
+        background: linear-gradient(90deg, #221F4A 19.37%, #A52E62 133.17%);
+        border-radius: 2px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 38px;
+        line-height: 46px;
+        color: #FFFFFF;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .related_events .container > .text h1 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 32px;
+        background: linear-gradient(90deg, #221F4A 19.37%, #A52E62 133.17%);
+        border-radius: 2px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 29px;
+        color: #FFFFFF;
+    }
+    .related_events .container > .text a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 16px;
+        gap: 10px;
+        background: linear-gradient(90deg, #221F4A 19.37%, #A52E62 133.17%);
+        border-radius: 2px;
+        width: max-content;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: 0.04em;
+        color: #fff;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .related_events .container .card {
+        position: relative;
+        height: 400px;
+        transition: .2s ease-in all !important;
+        width: 280px;
+    }
+    .related_events .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .related_events {
+        background-color: #060606;
+        padding: 24px 0;
+    }
+    .related_events .container > .text {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .event_location .container {
+        padding: 40px 32px;
+        position: relative;
+    }
+    .related_events .container > .text h1 br {
+        display: none;
+    }
+    .related_events .container > .text h1 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 32px;
+        background: transparent;
+        border-radius: 2px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 29px;
+        color: #FFFFFF;
+    }
+}

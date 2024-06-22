@@ -35,6 +35,7 @@ export type EventType = {
     sub_title_ar: string;
     type: string;
     location: LocationType;
+    related_events: EventType[]
 };
 
 export type AdType = {
