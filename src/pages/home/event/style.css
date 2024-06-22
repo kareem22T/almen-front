@@ -1,0 +1,242 @@
+.event-view header {
+    background: linear-gradient(90deg, #221F4A 19.37%, #A52E62 133.17%);
+}
+
+.event_cover {
+    background-color: black;
+    width: 100%;
+    max-height: 550px;
+    height: 550px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 85px;
+}
+.event_cover .container {
+    height: 100%;
+}
+.event_cover::after {
+    content: "";
+    /* Rectangle 3013 */
+
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    top: 0px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0, 0, 0, 0.447) 22%); 
+}
+
+.event_cover .thumbnail {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.event_cover .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(100%);
+}
+
+.event_cover .info p:first-child {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    margin-top: 48px;
+}
+.event_cover .info p:first-child *{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+    text-decoration: none;
+}
+.event_cover .info p:first-child span{
+    opacity: .5;
+}
+
+.event_cover .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.event_cover .container .text p:first-child {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    color: #FFFFFF;
+    
+}
+.event_cover .container .text h2 {
+font-family: 'Agharti';
+font-style: normal;
+font-weight: 900;
+font-size: 64px;
+line-height: 56px;
+/* or 88% */
+text-transform: uppercase;
+
+color: #485FEB;
+margin-bottom: 24px;
+}
+.event_cover .container .text p:last-of-type {
+font-style: normal;
+font-weight: 500;
+font-size: 22px;
+line-height: 32px;
+/* or 133% */
+max-width: 560px;
+color: #FFFFFF;
+margin-bottom: 24px;
+}
+.event_cover .container .text a {
+/* Book now! */
+
+font-weight: 600;
+font-size: 24px;
+line-height: 100%;
+/* identical to box height, or 24px */
+display: flex;
+align-items: center;
+letter-spacing: 0.04em;
+
+color: #FFFFFF;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 16px;
+gap: 10px;
+
+background: #485FEB;
+border-radius: 2px;
+
+width: max-content;
+text-decoration: none;
+margin-bottom: 32px;
+}
+
+.ar .event_cover .container .text h2 {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    line-height: 58px;
+    font-size: 44px;
+}
+
+.ar .thumbnail {
+    left: 0;
+    right: auto;
+}
+
+.ar .event_cover .info p:first-child svg {
+    transform: rotateY(180deg);
+}
+
+.ar .event_cover::after {
+    content: "";
+    /* Rectangle 3013 */
+
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    right: auto;
+    top: 0px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.447) 70%, rgba(0,0,0,1) 100%); 
+}
+
+@media (max-width: 767.98px) {
+    .event_cover {
+        background-color: black;
+        width: 100%;
+        max-height: 550px;
+        height: 430px;
+        overflow: hidden;
+        position: relative;
+        margin-top: 85px;
+    }
+    .event_cover .container .text p:first-child {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 19px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        color: #FFFFFF;
+    }
+    .event_cover .container .text h2 {
+        font-family: 'Agharti';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 48px;
+        line-height: 36px;
+        text-transform: uppercase;
+        color: #485FEB;
+        margin-bottom: 14px;
+    }
+    .event_cover .container .text p:last-of-type {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 20px;
+        max-width: 560px;
+        color: #FFFFFF;
+        margin-bottom: 14px;
+    }
+    .event_cover .container .text a {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 16px;
+        gap: 10px;
+        background: #485FEB;
+        border-radius: 2px;
+        width: max-content;
+        text-decoration: none;
+        margin-bottom: 32px;
+    }
+    .event_cover::after {
+        content: "";
+        position: absolute;
+        width: 100% !important;
+        height: 100%;
+        right: 0;
+        top: 0px;
+        background: linear-gradient(0, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.447) 22%) !important;
+    }
+    .event_cover .thumbnail {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }    
+    .ar .event_cover .container .text h2 {
+        font-family: "Noto Kufi Arabic", sans-serif;
+        line-height: 38px;
+        font-size: 28px;
+    }
+}
