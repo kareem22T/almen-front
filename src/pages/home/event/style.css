@@ -304,3 +304,36 @@ margin-bottom: 32px;
         font-size: 28px;
     }
 }
+
+.event_location {
+    background: #060606;
+}
+
+.event_location .container {
+    padding: 80px 32px;
+    position: relative;
+}
+.event_location .container iframe {
+    width: 100%;
+    height: 400px;
+}
+
+.event_location .location_card_wrapper {
+    position: absolute;
+    bottom: 20px;
+    z-index: 18;
+    width: 100%;
+    right: 0;
+    max-width: 500px;
+    padding: 24px 56px;
+}
+
+.event_location .location_card_wrapper .location_card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(90deg, #E6F600 -30.02%, #31BA99 27.95%, #4C13A2 184.7%), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    padding: 40px;
+    border-radius: 2px;
+    color: #fff;
+}

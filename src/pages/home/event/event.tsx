@@ -117,6 +117,27 @@ const Event = () => {
                     <img src={API_URL + event?.thumbnail} alt={event?.title} />
                 </div>
             </section>
+            <section className="event_location">
+                <div className="container">
+                    <iframe src={event?.location.url}></iframe>
+                    <div className="location_card_wrapper">
+
+                    <div className="location_card">
+                        <span>
+                            {translate(lang, "الموقع", "LOCATION")}
+                        </span>
+                        <h1>
+                            <Link to={"/location/" +  event?.location.id} style={{color: "#fff", textDecoration: "none"}}>
+                                {translate(lang, event?.location.title_ar as string, event?.location.title as string)}
+                            </Link>
+                        </h1>
+                        <h3>
+                            {translate(lang, event?.location.sub_title_ar as string, event?.location.sub_title as string)}
+                        </h3>
+                    </div>
+                    </div>
+                </div>
+            </section>
         </DefaultLayout>
     )
 }
