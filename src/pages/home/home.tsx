@@ -21,6 +21,8 @@ import { API_URL } from '../../_env';
 import { getCategories } from '../../features/categorySlice';
 import { getTopEvents } from '../../features/eventSlice';
 import { translate } from '../../utils/methods';
+import { Link } from 'react-router-dom';
+
 const Home = () => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
@@ -139,18 +141,26 @@ const Home = () => {
                                 <SwiperSlide key={item.item.id} className='hide'>
                                     {item.item.type === 'Event' ? (
                                         <>
-                                            <img src={API_URL + item.item.thumbnail } alt={translate(lang, item.item.title_ar, item.item.title)} />
+                                            <Link to={"/event/" + item.item.id }>
+                                                <img src={API_URL + item.item.thumbnail } alt={translate(lang, item.item.title_ar, item.item.title)} />
+                                            </Link>
                                             <div className="text">
-                                                <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
-                                                <span>{translate(lang, item.item.location?.title_ar, item.item.location?.title)}</span>
+                                                <Link to={"/event/" + item.item.id }>
+                                                    <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
+                                                </Link>
+                                                <Link to={"/location/" + item.item.location?.id }>
+                                                    <span>{translate(lang, item.item.location?.title_ar, item.item.location?.title)}</span>
+                                                </Link>
                                             </div>
                                         </>
                                     ) : item.item.type === 'Ad' ? (
                                         <>
+                                        <a href={item.item.link} target='_blank'>
                                             <img src={API_URL + item.item.photo_path} alt={translate(lang, item.item.title_ar, item.item.title)} />
                                             <div className="text">
                                                 <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
                                             </div>
+                                        </a>
                                         </>
                                     ) : null}
                                 </SwiperSlide>
@@ -315,8 +325,7 @@ const Home = () => {
                                     {translate(lang, "اليوم", "Today")}
                                 </span>
                                 <h2>
-                                    {new Date().toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { day: 'numeric'})
-}                                    <span className="mobile">{new Date().toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { month: 'short', weekday: 'short' })}</span>
+                                    {new Date().toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { day: 'numeric'})}                                    <span className="mobile">{new Date().toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { month: 'short', weekday: 'short' })}</span>
                                     <span>{new Date().toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { month: 'short'})}
                                     , {new Date().toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { weekday: 'long' })}</span>
                                 </h2>
@@ -403,60 +412,96 @@ const Home = () => {
                         {
                             selectedDay == 0 && (
                                 homeData?.today_events.map(item => (
-                                    <a href='' className="card">
-                                        <img src={API_URL + item.thumbnail} alt="" />
+                                    <div className="card">
+                                        <Link to={"/event/" + item.id }>
+                                            <img src={API_URL + item.thumbnail} alt="" />
+                                        </Link>
                                         <div className="text">
-                                            <h2>{translate(lang, item.title_ar, item.title)}</h2>
-                                            <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
+                                            <Link to={"/event/" + item.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <h2>{translate(lang, item.title_ar, item.title)}</h2>
+                                            </Link>
+                                            <Link to={"/event/" + item.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
+                                            </Link>
                                             <div className="category">
-                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                </Link>
                                                 <div className="text">
-                                                    <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
-                                                    <span>{translate(lang, item.location.title_ar, item.location.title)}</span>
+                                                    <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                        <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
+                                                    </Link>
+                                                    <Link to={"/location/" + item.location.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                        <span>{translate(lang, item.location.title_ar, item.location.title)}</span>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 ))
                             )
                         }
                         {
                             selectedDay == 1 && (
                                 homeData?.tomorrow_events.map(item => (
-                                    <a href='' className="card">
-                                        <img src={API_URL + item.thumbnail} alt="" />
+                                    <div className="card">
+                                        <Link to={"/event/" + item.id }>
+                                            <img src={API_URL + item.thumbnail} alt="" />
+                                        </Link>
                                         <div className="text">
-                                            <h2>{translate(lang, item.title_ar, item.title)}</h2>
-                                            <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
+                                            <Link to={"/event/" + item.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <h2>{translate(lang, item.title_ar, item.title)}</h2>
+                                            </Link>
+                                            <Link to={"/event/" + item.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
+                                            </Link>
                                             <div className="category">
-                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                </Link>
                                                 <div className="text">
-                                                    <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
-                                                    <span>{translate(lang, item.location.title_ar, item.location.title)}</span>
+                                                    <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                        <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
+                                                    </Link>
+                                                    <Link to={"/location/" + item.location.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                        <span>{translate(lang, item.location.title_ar, item.location.title)}</span>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 ))
                             )
                         }
                         {
                             selectedDay == 2 && (
                                 homeData?.upcoming_events.map(item => (
-                                    <a href='' className="card">
-                                        <img src={API_URL + item.thumbnail} alt="" />
+                                    <div className="card">
+                                        <Link to={"/event/" + item.id }>
+                                            <img src={API_URL + item.thumbnail} alt="" />
+                                        </Link>
                                         <div className="text">
-                                            <h2>{translate(lang, item.title_ar, item.title)}</h2>
-                                            <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
+                                            <Link to={"/event/" + item.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <h2>{translate(lang, item.title_ar, item.title)}</h2>
+                                            </Link>
+                                            <Link to={"/event/" + item.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
+                                            </Link>
                                             <div className="category">
-                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                </Link>
                                                 <div className="text">
-                                                    <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
-                                                    <span>{translate(lang, item.location.title_ar, item.location.title)}</span>
+                                                    <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                        <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
+                                                    </Link>
+                                                    <Link to={"/location/" + item.location.id } style={{display: 'block', textDecoration: 'none'}}>
+                                                        <span>{translate(lang, item.location.title_ar, item.location.title)}</span>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 ))
                             )
                         }

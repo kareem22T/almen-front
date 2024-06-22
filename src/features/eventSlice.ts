@@ -28,6 +28,7 @@ export type EventType = {
     location_id: string;
     created_at: string;
     updated_at: string;
+    link: string;
     portrait: string;
     title_ar: string;
     sub_title_ar: string;

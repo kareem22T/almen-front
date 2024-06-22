@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from '../../store';
 import logo from './../../images/logo.png';
 import menuIcon from "./../../images/Menu.png"
 import { setLanguage } from '../../features/settingSlice';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const lang = useSelector((state: RootState) => state.settings.lang);
@@ -14,7 +15,9 @@ const Header = () => {
     return (
         <header dir={lang == 'en' ? "ltr" : "rtl"}>
             <div className="container">
-                <img src={logo} alt="logo" />
+                <Link to={"/"}>
+                    <img src={logo} alt="logo" />
+                </Link>
                 <div className="options">
                     <button className='lang_btn' onClick={handleSetLang}>
                         {lang == 'en' ? "عربي" : "English"}

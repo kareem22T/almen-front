@@ -6,12 +6,14 @@ import homeReducer from './features/homeSlice';
 import categoryReducer from './features/categorySlice';
 import eventReducer from './features/eventSlice';
 import settingReducer from './features/settingSlice';
+import locationReducer from './features/locationSlice';
 
 const rootReducer = combineReducers({
   home: homeReducer, 
   categories: categoryReducer, 
   events: eventReducer, 
   settings: settingReducer, 
+  locations: locationReducer, 
 });
 
 const persistConfig = {

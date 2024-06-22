@@ -55,7 +55,7 @@ header .container {
     align-items: center;
 }
 
-header .container >img {
+header .container >a >img {
     height: 64px;
 }
 
@@ -280,7 +280,12 @@ header .container .options .lang_btn {
     transition: .4s ease-in all !important;
     position: relative;
 }
-.music_events .container .swiper .swiper-slide::after {
+.music_events .container .swiper .swiper-slide >a {
+    position: relative;
+    height: 100%;
+    display: block;
+}
+.music_events .container .swiper .swiper-slide >a::after {
     content: "";
     background: linear-gradient(180deg, rgba(6, 6, 6, 0) 42.55%, #060606 93.65%);
     position: absolute;
@@ -303,6 +308,10 @@ header .container .options .lang_btn {
     left: 16px;
     color: #FFFFFF;
     z-index: 3;
+}
+.music_events .container .swiper .swiper-slide .text a{
+    color: #fff;
+    text-decoration: none;
 }
 
 .music_events .container .swiper .swiper-slide.swiper-slide-active .text {
@@ -846,6 +855,9 @@ margin: auto;
     gap: 100px;
 }
 
+.events_schedual .container >.content {
+    width: 100%;
+}
 .events_schedual .container >.text span {
     
     font-style: normal;
@@ -881,7 +893,7 @@ margin: auto;
     margin-bottom: 32px;
 }
 
-.events_schedual .container .text a {
+.events_schedual .container >.text a {
     transition: all .2s ease-in;
     text-transform: uppercase;
     display: flex;
@@ -902,7 +914,7 @@ margin: auto;
     
     color: #FFF;    
 }
-.events_schedual .container .text a:hover {
+.events_schedual .container >.text a:hover {
     border: 2px solid white;
 }
 
@@ -1087,7 +1099,7 @@ margin: auto;
         width: 100%;
         margin-bottom: 8px;
     }
-    .events_schedual .container .text a {
+    .events_schedual .container >.text a {
         padding: 12px 40px;
     }
 }

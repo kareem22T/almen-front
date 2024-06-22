@@ -7,6 +7,7 @@ import "./css/main.css"
 import "./css/main_ar.css"
 import { RootState } from './store';
 import { useSelector } from 'react-redux';
+import Location from './pages/home/location/location';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,6 +36,14 @@ function App() {
           element={
             <>
               <Home />
+            </>
+          }
+        />
+        <Route
+          path="/location/:id"
+          element={
+            <>
+              <Location />
             </>
           }
         />
