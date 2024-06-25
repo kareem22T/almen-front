@@ -1109,9 +1109,9 @@ span.mobile {
         margin-bottom: 11px;
     }
     .events_schedual .container .text a {
-        padding: 8px 24px;
+        padding: 3px 0px;
         font-size: 14px;
-    }
+      }
     .events_schedual .container .content .body .card {
         display: flex;
         gap: 8px;
