@@ -119,7 +119,7 @@ const Footer = () => {
                             categories && (
                                     categories.map((cat, index) => (
                                         <li>
-                                            <a href={"/categories/" + cat.id}>
+                                            <a href={"/categories/" + cat.id} style={{textTransform: 'capitalize'}}>
                                                 {translate(lang, cat.title_ar as string, cat.title as string)}
                                             </a>
                                         </li>

@@ -1993,6 +1993,7 @@ line-height: 16.8px;
     border-radius: 3px;
     display: none;
     opacity: 0;
+    text-transform: capitalize;
 }
 
 .more.open {
