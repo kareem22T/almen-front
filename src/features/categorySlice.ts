@@ -3,6 +3,41 @@ import axios from "axios"
 import { API_URL } from '../_env';
 
 // Type Definitions
+type EventType = {
+    id: number;
+    title: string;
+    sub_title: string;
+    cover: string;
+    thumbnail: string;
+    landscape: string;
+    categories: string;
+    url: string | null;
+    date_from: string;
+    date_to: string;
+    location_id: string;
+    created_at: string;
+    updated_at: string;
+    portrait: string;
+    title_ar: string;
+    sub_title_ar: string;
+    pivot: {
+        category_id: number;
+        event_id: number;
+    };
+    location: {
+        id: number;
+        sub_title: string;
+        title: string;
+        url: string;
+        thumbnail_path: string;
+        created_at: string;
+        updated_at: string;
+        title_ar: string;
+        sub_title_ar: string;
+        cover_path: string;
+    };
+};
+
 type CategoryType = {
     id: number;
     svg_icon: string;
@@ -14,6 +49,7 @@ type CategoryType = {
     description_ar: string;
     created_at: string;
     updated_at: string;
+    events: EventType[];
 };
 
 type GetCategoriesResponse = {
@@ -50,25 +86,18 @@ const initialState: CategoriesState = {
     error: null,
 };
 
-// Slice
+// Create Slice
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
-    reducers: {
-        setCategories: (state, action: PayloadAction<CategoryType[] | null>) => {
-            state.categories = action.payload;
-        },
-        setError: (state, action: PayloadAction<string | null>) => {
-            state.error = action.payload;
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getCategories.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getCategories.fulfilled, (state, action) => {
+            .addCase(getCategories.fulfilled, (state, action: PayloadAction<GetCategoriesResponse>) => {
                 state.loading = false;
                 state.categories = action.payload.data;
             })
@@ -76,9 +105,7 @@ const categoriesSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
-    }
+    },
 });
 
-// Exports
-export const { setCategories, setError } = categoriesSlice.actions;
 export default categoriesSlice.reducer;

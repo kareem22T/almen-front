@@ -7,10 +7,12 @@ export type LocationType = {
     title: string;
     sub_title: string;
     thumbnail_path: string;
+    cover_path: string;
     url: string;
     title_ar: string;
     sub_title_ar: string;
     categories: CategoryWithEventsType[];
+    services: ServiceType[];
 };
 
 export type EventCategoryType = {
@@ -56,6 +58,23 @@ export type CategoryWithEventsType = {
     svg_icon: string;
     events: EventType[];
 };
+type ServiceType = {
+    id: number;
+    photo_path: string;
+    title: string;
+    sub_title: string;
+    location_id: number;
+    phone: string;
+    website: string;
+    working_from: string;
+    working_to: string;
+    created_at: string;
+    updated_at: string;
+    title_ar: string;
+    description: string;
+    description_ar: string;
+    sub_title_ar: string;
+};
 
 interface GetLocationResponse {
     status: boolean;
@@ -67,8 +86,10 @@ interface GetLocationResponse {
         title_ar: string;
         sub_title_ar: string;
         thumbnail_path: string;
+        cover_path: string;
         url: string;
         categories: CategoryWithEventsType[];
+        services: ServiceType[];
     };
     notes: {
         search: string;

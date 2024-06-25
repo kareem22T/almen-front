@@ -7,8 +7,10 @@ import "./css/main.css"
 import "./css/main_ar.css"
 import { RootState } from './store';
 import { useSelector } from 'react-redux';
-import Location from './pages/home/location/location';
-import Event from './pages/home/event/event';
+import Location from './pages/location/location';
+import Event from './pages/event/event';
+import Category from './pages/category/category';
+import Service from './pages/service/service';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -53,6 +55,22 @@ function App() {
           element={
             <>
               <Event />
+            </>
+          }
+        />
+        <Route
+          path="/service/:id"
+          element={
+            <>
+              <Service />
+            </>
+          }
+        />
+        <Route
+          path="/categories/:id?"
+          element={
+            <>
+              <Category />
             </>
           }
         />

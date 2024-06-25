@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import DefaultLayout from "../../../layout/DefaultLayout";
+import DefaultLayout from "../../layout/DefaultLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store";
+import { AppDispatch, RootState } from "../../store";
 import { useEffect, useRef, useState } from "react";
-import { getEventById } from "../../../features/eventSlice";
-import { API_URL } from "../../../_env";
-import { translate } from "../../../utils/methods";
+import { getEventById } from "../../features/eventSlice";
+import { API_URL } from "../../_env";
+import { translate } from "../../utils/methods";
 import category1 from "./../../../images/food-icon.png"
 import "./style.css"
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,11 +14,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { FreeMode, Navigation } from "swiper/modules";
+import { getServiceById } from "../../features/serviceSlice";
 
-const Event = () => {
+const Service = () => {
     const {id} = useParams();
     const dispatch = useDispatch<AppDispatch>();
-    const event = useSelector((state: RootState) => state.events.eventById);  
+    const service = useSelector((state: RootState) => state.services.serviceById);  
     const lang = useSelector((state: RootState) => state.settings.lang);
     const prevRef = useRef(null);
     const nextRef = useRef(null);
@@ -26,7 +27,7 @@ const Event = () => {
     const swiperRef = useRef<any>(null);
 
     useEffect(() => {
-        dispatch(getEventById(parseInt(id || "0")));        
+        dispatch(getServiceById(parseInt(id || "0")));        
       }, [dispatch]);
       useEffect(() => {
         document.body.classList.add("event-view");
@@ -45,48 +46,33 @@ const Event = () => {
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.293 4.70697L14.586 12L7.293 19.293L8.707 20.707L17.414 12L8.707 3.29297L7.293 4.70697Z" fill="white"/>
                                 </svg>
-                                {translate(lang, "الاحداث", "Events")}
+                                {translate(lang, "الخدمات", "Services")}
                             </span>
                             <a href="">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.293 4.70697L14.586 12L7.293 19.293L8.707 20.707L17.414 12L8.707 3.29297L7.293 4.70697Z" fill="white"/>
                                 </svg>
-                                {translate(lang, event?.title_ar as string, event?.title as string)}
+                                {translate(lang, service?.title_ar as string, service?.title as string)}
                             </a>
                         </p>
 
                         <div className="text">
                             <p>
-                                {translate(lang, "لا تغفل هذا الإحساس الصيفي!", "Don't overlook this summer sensation!")}
+                                {translate(lang, service?.sub_title_ar as string, service?.sub_title as string)}
                             </p>
                             <h2>
-                                {translate(lang, event?.title_ar as string, event?.title as string)}
+                                {translate(lang, service?.title_ar as string, service?.title as string)}
                             </h2>
                             <p>
-                                {translate(lang, event?.sub_title_ar as string, event?.sub_title as string)}
+                                {translate(lang, service?.description_ar as string, service?.description as string)}
                             </p>
-                            {
-                                event?.url && (
                                     
-                                    <a href="">
-                                        {translate(lang, "احجز الان!", "Book Now!")}
-                                    </a>
-                                )
-                            }
+                            <a href={service?.phone ? "tel:" + service?.phone : service?.website} target="_blank">
+                                {translate(lang, "تواصل", "Contact")}
+                            </a>
                         </div>
                     </div>
                     <div className="details">
-                    <div className="starts">
-                        <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.2824 1.29419H16.4294V3.23537C16.4294 3.6236 16.1206 3.88242 15.8118 3.88242C15.5029 3.88242 15.1941 3.6236 15.1941 3.23537V1.29419H5.31176V3.23537C5.31176 3.6236 5.00294 3.88242 4.69412 3.88242C4.38529 3.88242 4.07647 3.6236 4.07647 3.23537V1.29419H2.22353C1.29706 1.29419 0.617645 2.13537 0.617645 3.23537V5.56478H20.3824V3.23537C20.3824 2.13537 19.2706 1.29419 18.2824 1.29419ZM0.617645 6.9236V18.7648C0.617645 19.9295 1.29706 20.706 2.28529 20.706H18.3441C19.3324 20.706 20.4441 19.8648 20.4441 18.7648V6.9236H0.617645ZM6.1147 17.7942H4.63235C4.38529 17.7942 4.13823 17.6001 4.13823 17.2765V15.6589C4.13823 15.4001 4.32353 15.1412 4.63235 15.1412H6.17647C6.42353 15.1412 6.67059 15.3354 6.67059 15.6589V17.2765C6.60882 17.6001 6.42353 17.7942 6.1147 17.7942ZM6.1147 11.9707H4.63235C4.38529 11.9707 4.13823 11.7765 4.13823 11.453V9.83537C4.13823 9.57654 4.32353 9.31772 4.63235 9.31772H6.17647C6.42353 9.31772 6.67059 9.51184 6.67059 9.83537V11.453C6.60882 11.7765 6.42353 11.9707 6.1147 11.9707ZM11.0559 17.7942H9.51176C9.2647 17.7942 9.01765 17.6001 9.01765 17.2765V15.6589C9.01765 15.4001 9.20294 15.1412 9.51176 15.1412H11.0559C11.3029 15.1412 11.55 15.3354 11.55 15.6589V17.2765C11.55 17.6001 11.3647 17.7942 11.0559 17.7942ZM11.0559 11.9707H9.51176C9.2647 11.9707 9.01765 11.7765 9.01765 11.453V9.83537C9.01765 9.57654 9.20294 9.31772 9.51176 9.31772H11.0559C11.3029 9.31772 11.55 9.51184 11.55 9.83537V11.453C11.55 11.7765 11.3647 11.9707 11.0559 11.9707ZM15.9971 17.7942H14.4529C14.2059 17.7942 13.9588 17.6001 13.9588 17.2765V15.6589C13.9588 15.4001 14.1441 15.1412 14.4529 15.1412H15.9971C16.2441 15.1412 16.4912 15.3354 16.4912 15.6589V17.2765C16.4912 17.6001 16.3059 17.7942 15.9971 17.7942ZM15.9971 11.9707H14.4529C14.2059 11.9707 13.9588 11.7765 13.9588 11.453V9.83537C13.9588 9.57654 14.1441 9.31772 14.4529 9.31772H15.9971C16.2441 9.31772 16.4912 9.51184 16.4912 9.83537V11.453C16.4912 11.7765 16.3059 11.9707 15.9971 11.9707Z" fill="white"/>
-                        </svg>
-
-                        {
-                            new Date(event?.date_from as string).toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { month: 'long'}) + " " + 
-                            new Date(event?.date_from as string).toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { day: 'numeric'}) + ", " +
-                            new Date(event?.date_from as string).toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { year: "numeric"})
-                        }
-                    </div>
                     <div className="starts">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_1_1341)">
@@ -100,10 +86,10 @@ const Event = () => {
                         </svg>
 
                         {
-                            new Date(event?.date_from as string).toLocaleDateString(translate(lang, "ar-EG-u-nu-latn", "en-US"), { hour: 'numeric', minute: 'numeric', hour12: true})
+                        (service?.working_from) + " - " + service?.working_to
                         }
                     </div>
-                    <Link to={"/location/" +  event?.location.id} className="starts">
+                    <Link to={"/location/" +  service?.location.id} className="starts">
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_1_988)">
                             <path d="M10.8771 0C7.05459 0 3.86646 3.11395 3.86646 7.08984C3.86646 8.60243 4.3159 9.95122 5.17846 11.2151L10.3406 19.3611C10.591 19.7571 11.1637 19.7563 11.4136 19.3611L16.5981 11.1874C17.4421 9.98078 17.8877 8.56397 17.8877 7.08984C17.8877 3.1805 14.7427 0 10.8771 0ZM10.8771 10.3125C9.12005 10.3125 7.69043 8.86673 7.69043 7.08984C7.69043 5.31296 9.12005 3.86719 10.8771 3.86719C12.6341 3.86719 14.0637 5.31296 14.0637 7.08984C14.0637 8.86673 12.6341 10.3125 10.8771 10.3125Z" fill="white"/>
@@ -117,19 +103,21 @@ const Event = () => {
                             </svg>
 
 
-                            {translate(lang, event?.location.title_ar as string, event?.location.title as string)}
+                            {translate(lang, service?.location.title_ar as string, service?.location.title as string)}
                             
                     </Link>
 
                     </div>
                 </div>
                 <div className="thumbnail">
-                    <img src={API_URL + event?.thumbnail} alt={event?.title} />
+                    <img src={API_URL + service?.photo_path} alt={service?.title} />
                 </div>
             </section>
             <section className="event_location">
                 <div className="container">
-                    <iframe src={event?.location.url}></iframe>
+                    <a href={service?.location.url}>
+                        <img src={API_URL + service?.location.thumbnail_path} alt="" />
+                    </a>
                     <div className="location_card_wrapper">
 
                     <div className="location_card">
@@ -137,12 +125,12 @@ const Event = () => {
                             {translate(lang, "الموقع", "LOCATION")}
                         </span>
                         <h1>
-                            <Link to={"/location/" +  event?.location.id} style={{color: "#fff", textDecoration: "none"}}>
-                                {translate(lang, event?.location.title_ar as string, event?.location.title as string)}
+                            <Link to={"/location/" +  service?.location.id} style={{color: "#fff", textDecoration: "none"}}>
+                                {translate(lang, service?.location.title_ar as string, service?.location.title as string)}
                             </Link>
                         </h1>
                         <h3>
-                            {translate(lang, event?.location.sub_title_ar as string, event?.location.sub_title as string)}
+                            {translate(lang, service?.location.sub_title_ar as string, service?.location.sub_title as string)}
                         </h3>
                     </div>
                     </div>
@@ -223,7 +211,7 @@ const Event = () => {
                         }}
                         >
                         {
-                            event?.related_events.map((eve) => (
+                            service?.relatedEvants.map((eve) => (
                             <SwiperSlide className="card">
                                 <div className="hover">
                                     <a href={"/event/" + eve.id} className="text">
@@ -298,4 +286,4 @@ const Event = () => {
     )
 }
 
-export default Event;
+export default Service;

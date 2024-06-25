@@ -67,6 +67,7 @@ header .container .options {
 header .container .options button {
     background-color: transparent;
     border: none;
+    position: relative;
 }
 header .container .options button img {
     width: 40px;
@@ -578,17 +579,16 @@ header .container .options .lang_btn {
 /* categories  */
 .categories {
     padding: 100px 0;
-    background: linear-gradient(90deg, #E6F600 0%, #31BA99 27%, #5117E0 99%);
+    background: #080114;
     position: relative;
     overflow: hidden;
 }   
+/*
 .categories::before {
-    /* Rectangle 14 */
 content: "";
 position: absolute;
 width: 860px;
 height: 2400px;
-/* left: 1070.06px; */
 top: -948px;
 
 background: #08B7BF;
@@ -598,7 +598,6 @@ transform: rotate(45deg);
 }
 
 .categories::after {
-    /* Rectangle 13 */
 content: "";
 position: absolute;
 width: 860px;
@@ -611,6 +610,7 @@ opacity: 0.2;
 transform: rotate(45deg);
 
 }
+*/
 
 .categories .container {
     z-index: 16;
@@ -647,8 +647,8 @@ margin: auto;
 
 .categories .categories_wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 110px;
     margin-top: 80px;
 }
 
@@ -672,17 +672,16 @@ margin: auto;
     align-items: center;
     flex-direction: column;
     gap: 8px;
-    padding: 48px 40px 80px;
 }
 .categories_wrapper h2 {
-    color: #004DFF;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 40px;
-    letter-spacing: -0.01em;
-    text-align: center;
+    color: #fff;
     text-transform: uppercase;
     z-index: 2;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 34px;
+    text-align: center;
+
 }
 .categories_wrapper p {
     color: #221F4A;
@@ -705,9 +704,9 @@ margin: auto;
     stroke: #FFD86F;
 }
 .categories_wrapper >div svg, .categories >div img {
-    width: 64px;
+    width: 105px;
     z-index: 2;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 .categories_wrapper .bg {
     position: absolute;
@@ -717,38 +716,6 @@ margin: auto;
     height: 100%;
 }
 
-.categories_wrapper >div:first-child .card_wrapper {
-    padding: 16px 40px;
-    gap: 16px;
-}
-.categories_wrapper >div:first-child .card_wrapper .head {
-    position: relative;
-    width: 190px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 170px;
-}
-
-.categories_wrapper >div:first-child .card_wrapper .food_bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.categories_wrapper >div:first-child .card_wrapper .head img:not(.food_bg) {
-    margin-bottom: 16px;
-}
-.categories_wrapper >div:first-child .card_wrapper .head h2 {
-    color: #E6F600;
-}
-
-.categories_wrapper >div:first-child .card_wrapper p {
-    color: #FFFFFF;
-}
 
 .categories .categories_wrapper a {
     text-decoration: none;
@@ -763,7 +730,7 @@ margin: auto;
         line-height: 49.6px;
     }
     .categories .categories_wrapper {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
         margin-top: 72px;
     }
     .categories_wrapper > div svg {
@@ -774,12 +741,6 @@ margin: auto;
     }
     .categories_wrapper p {
         font-size: 13px;
-    }
-    .categories_wrapper .card_wrapper {
-        padding: 32px 32px 50px;
-    }
-    .categories_wrapper > div:first-child .card_wrapper {
-        padding: 16px 32px;
     }
 }
 
@@ -795,7 +756,7 @@ margin: auto;
     .categories .categories_wrapper {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         margin-top: 64px;
-        gap: 24px;
+        gap: 64px;
     }
 }
 
@@ -811,21 +772,9 @@ margin: auto;
     .categories_wrapper h2 {
         font-size: 23px;
     }
-    .categories_wrapper .card_wrapper {
-        padding: 32px 16px 32px;
-    }
-    .categories_wrapper > div:first-child .card_wrapper {
-        padding: 16px 16px;
-    }
 }
 
 @media (max-width: 575.98px) {
-    .categories_wrapper .card_wrapper {
-        padding: 32px 32px 50px;
-    }
-    .categories_wrapper > div:first-child .card_wrapper {
-        padding: 16px 32px;
-    }    
     .categories {
         padding: 40px 0;
     }
@@ -840,6 +789,20 @@ margin: auto;
     }
     .categories .categories_wrapper {
         margin-top: 32px;
+    }
+    .categories .categories_wrapper {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        margin-top: 64px;
+        gap: 24px;
+    }
+    .categories_wrapper > div svg, .categories > div img {
+        width: 55px;
+        z-index: 2;
+        margin-bottom: 16px;
+    }
+    .categories_wrapper h2 {
+        font-size: 16px;
+        line-height: 23px;
     }
 }
 
@@ -1224,10 +1187,11 @@ span.mobile {
     max-height: min-content !important;
 }
 
-.restaurants .container .restaurants_wrapper .card >div{
-    display: flex;
+.restaurants .container .restaurants_wrapper .card >div a{
+    display: flex !important;
     flex-direction: column;
     justify-content: start;
+    text-decoration: none;
     align-items: center;
     gap: 32px;
 }
@@ -1297,7 +1261,7 @@ span.mobile {
     transform: none;
 }
 
-.restaurants .container .restaurants_wrapper .card.open >div{
+.restaurants .container .restaurants_wrapper .card.open >div a{
     gap: 18px;
     flex-direction: row;
     align-items: start;
@@ -1323,7 +1287,7 @@ span.mobile {
     color: white;
     margin-top: 16px;
 }
-.restaurants .container .restaurants_wrapper .card.open a {
+.restaurants .container .restaurants_wrapper .card.open >a {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -1347,7 +1311,7 @@ span.mobile {
     color: #5E78EE;
 
 }
-.restaurants .container .restaurants_wrapper .card a,
+.restaurants .container .restaurants_wrapper .card >a,
 .restaurants .container .restaurants_wrapper .card p {
     opacity: 0;
 }
@@ -1970,8 +1934,10 @@ line-height: 16.8px;
     }
     footer .links .all_links {
         display: flex;
+        flex-direction: column-reverse;
         gap: 32px;
-        align-items: end;
+        align-items: start;
+        justify-content: space-between;
     }
     footer .links ul h1 {
         font-size: 16px;
@@ -2007,4 +1973,54 @@ line-height: 16.8px;
     footer .subscribe_wrapper > div > div p {
         text-align: center;
     }
+}
+
+.events_schedual .container .content .body .card .text .category a img{
+    width: 40px;
+    height: 40px;
+}
+
+
+.more {
+    list-style: none;
+    position: absolute;
+    top: calc(100% + 40px);
+    width: 200px;
+    right: 0;
+    text-align: left;
+    padding: 16px;
+    background: white;
+    border-radius: 3px;
+    display: none;
+    opacity: 0;
+}
+
+.more.open {
+    display: block;
+    animation: fadeIn 0.2s ease-in 0.2s forwards;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.more a {
+    color: #080114;
+    text-decoration: none;
+    padding: 4px;
+    transition: all .3s ease-in;
+}
+
+.more a:hover {
+    color: #2956F3;
+}
+
+.ar .more {
+    left: 0;
+    right: auto;
+    text-align: right;
 }

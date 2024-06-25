@@ -13,6 +13,8 @@ import { subscribe, translate } from "../../utils/methods"
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getCategories } from "../../features/categorySlice"
+import { Link } from "react-router-dom"
 
 const showSuccessMsg = (msg:string) => {
     toast.success(msg);
@@ -20,6 +22,8 @@ const showSuccessMsg = (msg:string) => {
   
 
 const Footer = () => {
+    const categories = useSelector((state: RootState) => state.categories.categories);  
+
     const dispatch = useDispatch<AppDispatch>();
     const lang = useSelector((state: RootState) => state.settings.lang);
 
@@ -44,7 +48,7 @@ const Footer = () => {
     }
     useEffect(() => {
         dispatch(getHomeData());
-        
+        dispatch(getCategories());        
       }, [dispatch]);
 
     return (
@@ -75,9 +79,9 @@ const Footer = () => {
                                 {translate(lang, "صيفك المثالي!", "event today!")}
                                 
                             </p>
-                            <a href="">
+                            <Link to="/categories">
                                 {translate(lang, "عرض الاحداث", "View Events")}
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -105,22 +109,24 @@ const Footer = () => {
                     </div>
                     <div className="all_links">
                         <ul>
-                            <li><h1>Quick Links</h1></li>
-                            <li><a href="">All Events</a></li>
-                            <li><a href="">Booking</a></li>
-                            <li><a href="">Zones</a></li>
+                            <li><h1>{translate(lang, "اختصارات", "Quik Links")}</h1></li>
+                            <li><Link to="/categories">{translate(lang, "جميع الفاعليات", "All Events")}</Link></li>
+                            <li><Link to="/categories/99">{translate(lang, "جميع الخدمات", "All Service")}</Link></li>
                         </ul>
-                        <ul>
-                            <li><h1>Categories</h1></li>
-                            <li><a href="">Food</a></li>
-                            <li><a href="">Entertainment</a></li>
-                            <li><a href="">Adventure</a></li>
-                        </ul>
-                        <ul>
-                            <li><h1></h1></li>
-                            <li><a href="">Music</a></li>
-                            <li><a href="">Family</a></li>
-                            <li><a href="">Sports</a></li>
+                        <ul style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px"}}>
+                            <li style={{gridColumn: "span 2"}}><h1>{translate(lang, "الاقسام", "Categories")}</h1></li>
+                            {
+                            categories && (
+                                    categories.map((cat, index) => (
+                                        <li>
+                                            <a href={"/categories/" + cat.id}>
+                                                {translate(lang, cat.title_ar as string, cat.title as string)}
+                                            </a>
+                                        </li>
+                                    )
+                                )
+                            )
+                        }
                         </ul>
                     </div>
                 </div>

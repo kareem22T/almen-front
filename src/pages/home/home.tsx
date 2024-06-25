@@ -11,9 +11,7 @@ import React, { useRef, useEffect, useState } from 'react';
 
 import DefaultLayout from "../../layout/DefaultLayout";
 import heroImg from "./../../images/hero.jpeg"
-import category1 from "./../../images/food-icon.png"
-import catBg from "./../../images/Union(1).png"
-import foodU from "./../../images/U.png"
+import servicesImg from "./../../images/services.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { getHomeData } from '../../features/homeSlice';
@@ -116,7 +114,7 @@ const Home = () => {
                         ref={swiperRef}
                         dir={translate(lang, "ltr", "rtl")}
                         slidesPerView={3}
-                        loop={true}
+                        // loop={true}
                         className="mySwiper"
                         navigation={{
                             prevEl: prevRef.current,
@@ -133,6 +131,7 @@ const Home = () => {
                             },
                             992: {
                                 slidesPerView: 3,
+                                loop: true
                             },
                         }}
                         >
@@ -260,43 +259,36 @@ const Home = () => {
                         {translate(lang, "اللغات الأوروبية هي أعضاء في نفس العائلة. إن الوجود المنفصل هو أسطورة. من خلال العلم والموسيقى والرياضة وما إلى ذلك، لا يوجد في أوروبا سوى مفردات واحدة.", "Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.")}
                     </p>
                     <div className="categories_wrapper">
-                        <div>
-                            <div className="card_wrapper">
-                                <div className="head">
-                                    <img src={foodU} className="food_bg" />
-                                    <img src={category1} alt="" />
-                                    <h2>
-                                    {translate(lang, "طعام", "Food")}
-                                    </h2>
-                                </div>
-                                <p>
-                                    {translate(lang, "اللغات الأوروبية هي أعضاء في نفس العائلة. إن الوجود المنفصل هو أسطورة.", "Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.")}
-                                </p>
-                            </div>
-                        </div>
                         {
                             categories && (
                                 categories.map(item => (
                                     <div key={item.id}>
-                                        <a href="">
-
-                                        <img src={catBg} className="bg" />
-                                        <div className="card_wrapper">
-                                            <div className="head">
-                                                <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.svg_icon }} />
-                                                <h2>
-                                                    {translate(lang, item.title_ar, item.title)}
-                                                </h2>
+                                        <Link to={'/categories/' + item.id}>
+                                            <div className="card_wrapper">
+                                                <div className="head">
+                                                    <img src={API_URL + item.thumbnail_path} alt="" />
+                                                    <h2>
+                                                        {translate(lang, item.title_ar, item.title)}
+                                                    </h2>
+                                                </div>
                                             </div>
-                                            <p>
-                                            {translate(lang, item.description_ar, item.description)}
-                                            </p>
-                                        </div>
-                                        </a>
+                                        </Link>
                                     </div>
                                 ))
                             )
                         }
+                        <div>
+                            <Link to={'/categories/' + 99}>
+                                <div className="card_wrapper">
+                                    <div className="head">
+                                        <img src={servicesImg} alt="" />
+                                        <h2>
+                                            {translate(lang, "الخدمات", "Services")}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -314,9 +306,9 @@ const Home = () => {
                         <p>
                             {translate(lang, "انغمس في الإثارة! استكشف جدول الأحداث الحالي لدينا وابحث عن مغامرتك القادمة.", "Dive into excitement! Explore our current event schedule and find your next adventure.")}
                         </p>
-                        <a href="">
+                        <Link to="/categories">
                             {translate(lang, "عرض المزيد", "VIEW MORE")}
-                        </a>
+                        </Link>
                     </div>
                     <div className="content">
                         <div className="head">
@@ -424,11 +416,11 @@ const Home = () => {
                                                 <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
                                             </Link>
                                             <div className="category">
-                                                <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
-                                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <Link to={"/categories/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <img src={API_URL + item.event_categories[0].svg_icon} alt="" />
                                                 </Link>
                                                 <div className="text">
-                                                    <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                    <Link to={"/categories/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
                                                         <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
                                                     </Link>
                                                     <Link to={"/location/" + item.location.id } style={{display: 'block', textDecoration: 'none'}}>
@@ -456,11 +448,11 @@ const Home = () => {
                                                 <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
                                             </Link>
                                             <div className="category">
-                                                <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
-                                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <Link to={"/categories/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <img src={API_URL + item.event_categories[0].svg_icon} alt="" />
                                                 </Link>
                                                 <div className="text">
-                                                    <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                    <Link to={"/categories/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
                                                         <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
                                                     </Link>
                                                     <Link to={"/location/" + item.location.id } style={{display: 'block', textDecoration: 'none'}}>
@@ -488,11 +480,11 @@ const Home = () => {
                                                 <p>{translate(lang, item.sub_title_ar, item.sub_title)}</p>
                                             </Link>
                                             <div className="category">
-                                                <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
-                                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: item.event_categories[0].svg_icon }} />
+                                                <Link to={"/categories/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                <img src={API_URL + item.event_categories[0].svg_icon} alt="" />
                                                 </Link>
                                                 <div className="text">
-                                                    <Link to={"/category/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
+                                                    <Link to={"/categories/" + item.event_categories[0].id } style={{display: 'block', textDecoration: 'none'}}>
                                                         <p>{translate(lang, item.event_categories[0].title_ar, item.event_categories[0].title)}</p>
                                                     </Link>
                                                     <Link to={"/location/" + item.location.id } style={{display: 'block', textDecoration: 'none'}}>
@@ -515,7 +507,7 @@ const Home = () => {
                     {translate(lang, "اكتشف", "CHECK")}
                     </span>
                     <h1>
-                    {translate(lang, "تصفح المطاعم", "DISCOVER RESTAURANT")}
+                    {translate(lang, "تصفح الخدمات", "DISCOVER SERVICES")}
                     </h1>
                     <div className="restaurants_wrapper">
                         {
@@ -524,18 +516,21 @@ const Home = () => {
 
                                     <div className={"card " + (selectedRestaurant ==  index? "open" : "")} onClick={() => setselectedRestaurant(index)}>
                                         <div>
+
+                                        <Link to={"/service/" + item.id}>
                                             <img src={API_URL + item.photo_path} alt="" />
                                             <div className="title">
                                                 <h2>{translate(lang, item.title_ar, item.title)}</h2>
                                                 <h3>{translate(lang, item.sub_title_ar, item.sub_title)}</h3>
                                             </div>
+                                        </Link>
                                         </div>
                                         <p>
                                             {translate(lang, item.description_ar, item.description)}
                                         </p>
-                                        <a href="">
-                                            {translate(lang, "حجز", "Reservation")}
-                                        </a>
+                                        <Link to="/categories/99">
+                                            {translate(lang, "اكتشف المزيد", "Check More Services")}
+                                        </Link>
                                     </div>
                                 ))
                             )

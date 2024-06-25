@@ -1,13 +1,14 @@
 import { Link, useParams } from "react-router-dom";
-import DefaultLayout from "../../../layout/DefaultLayout";
+import DefaultLayout from "../../layout/DefaultLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store";
+import { AppDispatch, RootState } from "../../store";
 import { useEffect, useState } from "react";
-import { getLocation } from "../../../features/locationSlice";
-import { API_URL } from "../../../_env";
-import { translate } from "../../../utils/methods";
+import { getLocation } from "../../features/locationSlice";
+import { API_URL } from "../../_env";
+import { translate } from "../../utils/methods";
 import category1 from "./../../../images/food-icon.png"
 import "./style.css"
+import serviceIcon from "./../../images/services_icon.png"
 
 const Location = () => {
     const {id} = useParams();
@@ -30,7 +31,7 @@ const Location = () => {
     return (
         <DefaultLayout>
             <section className="cover">
-                <img src={API_URL + location?.thumbnail_path} alt="" />
+                <img src={API_URL + location?.cover_path} alt="" />
                 <div className="container">
                     <p>
                         <span>
@@ -56,12 +57,16 @@ const Location = () => {
                         {
                             location?.categories.map((cat, index) => (
                                 <button className={selectedCategory == index ? "active" : ""} onClick={() => setSelectedCategory(index)}>
-                                    <div className='d-flex' dangerouslySetInnerHTML={{ __html: cat.svg_icon }} />
+                                    <img src={API_URL + cat.svg_icon} alt="" />
                                     {translate(lang, cat.name_ar as string, cat.name as string)}
                                 </button>
                                 )
                             )
                         }
+                        <button className={selectedCategory == -2 ? "active" : ""} onClick={() => setSelectedCategory(-2)}>
+                            <img src={serviceIcon} alt="" />
+                            {translate(lang, "الخدمات" as string, "Services")}
+                        </button>
                     </div>
                 </div>
             </section>
@@ -139,6 +144,55 @@ const Location = () => {
                                 ))
                             )
                         ))
+                    }
+                    {
+                        location && (
+                            location?.services.map((serv, index) => (
+                                (selectedCategory == -1 || selectedCategory == -2) && (
+                                    <div className="card">
+                                        <div className="hover">
+                                            <Link to={"/service/" + serv.id} className="text">
+                                                <h2>
+                                                    {translate(lang, serv.title_ar, serv.title)}
+                                                </h2>
+                                                <p>
+                                                    {translate(lang, serv.sub_title_ar as string, serv.sub_title)}
+                                                </p>
+                                                <br />
+                                                <div className="starts">
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_1_1341)">
+                                                    <path d="M10 0.625C4.83063 0.625 0.625 4.83063 0.625 10C0.625 15.1694 4.83063 19.375 10 19.375C15.1694 19.375 19.375 15.1694 19.375 10C19.375 4.83063 15.1694 0.625 10 0.625ZM14.1919 14.1919C14.07 14.3138 13.91 14.375 13.75 14.375C13.59 14.375 13.43 14.3138 13.3081 14.1919L9.55813 10.4419C9.44063 10.3244 9.375 10.1656 9.375 10V5C9.375 4.655 9.655 4.375 10 4.375C10.345 4.375 10.625 4.655 10.625 5V9.74125L14.1919 13.3081C14.4363 13.5525 14.4363 13.9475 14.1919 14.1919Z" fill="white"/>
+                                                    </g>
+                                                    <defs>
+                                                    <clipPath id="clip0_1_1341">
+                                                    <rect width="20" height="20" fill="white"/>
+                                                    </clipPath>
+                                                    </defs>
+                                                    </svg>
+    
+                                                    {
+                                                        (serv.working_from) + " - " + serv.working_to
+                                                    }
+                                                </div>
+                                            </Link>
+                                            <a href={serv.phone ? "tel:" + serv.phone : serv.website} target="_blank">
+                                                Contact
+                                            </a>
+                                        </div>
+                                        <img src={API_URL + serv.photo_path} alt="" />
+                                        <div className="text">
+                                            <h2>
+                                                {translate(lang, serv.title_ar, serv.title)}
+                                            </h2>
+                                            <p>
+                                                {translate(lang, serv.sub_title_ar as string, serv.sub_title)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            ))
+                        )
                     }
                 </div>
             </section>

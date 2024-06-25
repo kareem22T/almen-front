@@ -7,6 +7,7 @@ import categoryReducer from './features/categorySlice';
 import eventReducer from './features/eventSlice';
 import settingReducer from './features/settingSlice';
 import locationReducer from './features/locationSlice';
+import serviceReducer from './features/serviceSlice';
 
 const rootReducer = combineReducers({
   home: homeReducer, 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   events: eventReducer, 
   settings: settingReducer, 
   locations: locationReducer, 
+  services: serviceReducer, 
 });
 
 const persistConfig = {
