@@ -73,6 +73,18 @@ interface GetTopEventsResponse {
     };
 }
 
+interface GetSearchResults {
+    status: boolean;
+    message: string;
+    errors: string[];
+    data: EventType[];
+    notes: {
+        type: {
+            [key: number]: string;
+        };
+    };
+}
+
 export const getTopEvents = createAsyncThunk<GetTopEventsResponse>(
     'events/getTopEvents',
     async (_, { rejectWithValue }) => {
@@ -101,9 +113,23 @@ export const getEventById = createAsyncThunk<EventType, number, { rejectValue: s
     }
 );
 
+// New search async thunk
+export const searchEvents = createAsyncThunk<GetSearchResults, string, { rejectValue: string }>(
+    'events/searchEvents',
+    async (search, { rejectWithValue }) => {
+        try {
+            const response = await axios.post<GetSearchResults>(`${API_URL}/api/events/search?search=${search}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(`Failed to search events: ${error}`);
+        }
+    }
+);
+
 interface EventsState {
     topEvents: TopEventType[] | null;
     eventById: EventType | null;
+    searchResults: EventType[] | null;
     loading: boolean;
     error: string | null;
 }
@@ -111,6 +137,7 @@ interface EventsState {
 const initialState: EventsState = {
     topEvents: null,
     eventById: null,
+    searchResults: null,
     loading: false,
     error: null,
 };
@@ -124,6 +151,9 @@ const eventsSlice = createSlice({
         },
         setEventById: (state, action: PayloadAction<EventType | null>) => {
             state.eventById = action.payload;
+        },
+        setSearchResults: (state, action: PayloadAction<EventType[] | null>) => {
+            state.searchResults = action.payload;
         },
         setError: (state, action: PayloadAction<string | null>) => {
             state.error = action.payload;
@@ -154,10 +184,22 @@ const eventsSlice = createSlice({
             .addCase(getEventById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+            .addCase(searchEvents.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(searchEvents.fulfilled, (state, action) => {
+                state.loading = false;
+                state.searchResults = action.payload.data;
+            })
+            .addCase(searchEvents.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
             });
     }
 });
 
-export const { setTopEvents, setEventById, setError } = eventsSlice.actions;
+export const { setTopEvents, setEventById, setSearchResults, setError } = eventsSlice.actions;
 
 export default eventsSlice.reducer;

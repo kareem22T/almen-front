@@ -11,6 +11,7 @@ import Location from './pages/location/location';
 import Event from './pages/event/event';
 import Category from './pages/category/category';
 import Service from './pages/service/service';
+import Search from './pages/search/search';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -55,6 +56,14 @@ function App() {
           element={
             <>
               <Event />
+            </>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <>
+              <Search />
             </>
           }
         />

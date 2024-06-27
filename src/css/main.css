@@ -62,7 +62,7 @@ header .container >a >img {
 header .container .options {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 18px;
 }
 header .container .options button {
     background-color: transparent;
@@ -252,6 +252,32 @@ header .container .options .lang_btn {
     .hero a svg {
         width: 20px;
         height: 20px;
+    }
+    header .container .options .lang_btn {
+        font-family: Lama Sans;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 15.89px;
+        text-align: center;
+        padding: 6px 11px;
+        background: #FFFFFF;
+        border-radius: 2px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    header .container .options button img {
+        width: 30px;
+    }
+    header .container > a > img {
+        height: 40px;
+    }
+    header {
+        padding: 12px 0;
+    }
+    header .container .options {
+        gap: 12px;
     }
 }
 /* starts music events */
@@ -1381,7 +1407,7 @@ span.mobile {
         color: white;
         margin-top: 8px;
     }
-    .restaurants .container .restaurants_wrapper .card.open > div {
+    .restaurants .container .restaurants_wrapper .card.open > div a{
         flex-direction: column;
     }
     .restaurants .container > h1 {
@@ -2024,4 +2050,114 @@ line-height: 16.8px;
     left: 0;
     right: auto;
     text-align: right;
+}
+
+.search_wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 2rem;
+    width: 100%;
+    height: 100vh;
+    background: #060606d1;
+}
+
+.search_wrapper form {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+}
+
+.search_wrapper form input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #FFFFFF52;
+    color: white;
+    padding: 12px 40px;
+}
+.search_wrapper form input:focus {
+    outline: none;
+    border-bottom: 2px solid #e6f60073;
+}
+
+.search_wrapper form >svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search_wrapper form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border-radius: 0;
+    background: #262626;
+    color: white;
+    border: none;
+    gap: 8px;
+    min-width: 120px;
+}
+.search_wrapper form button.search {
+    background-color: #485FEB;
+}
+
+.suggestion {
+    padding: 16px;
+    overflow: auto;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff0a;
+    margin-top: 16px;
+}
+
+.suggestion a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px;
+    transition: all .3s ease-in;
+}
+
+.suggestion a:hover {
+    color: #5E78EE;
+}
+
+@media (max-width: 575.98px) {
+    .search_wrapper form input {
+        width: 100%;
+        background: transparent;
+        border: none;
+          border-bottom-width: medium;
+          border-bottom-style: none;
+          border-bottom-color: currentcolor;
+        border-bottom: 2px solid #FFFFFF52;
+        color: white;
+        padding: 8px 32px;
+    }
+    .search_wrapper form button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 6px;
+        border-radius: 0;
+        background: #262626;
+          background-color: rgb(38, 38, 38);
+        color: white;
+        border: none;
+        gap: 8px;
+        min-width: 70px;
+        font-size: 11px;
+    }
+    .search_wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 1rem;
+        width: 100%;
+        height: 100vh;
+        background: #060606d1;
+    }
 }
