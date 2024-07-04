@@ -462,9 +462,6 @@ header .container .options .lang_btn {
     align-items: center;
     padding: 18px 0;
 }
-.top_sposor_wrapper .sponsors a:not(:last-child){
-    border-right: 1px solid #FFFFFF80
-}
 
 @media (max-width: 1399.98px) {
     .music_events .text_wrapper span {
