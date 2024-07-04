@@ -1,1 +1,1 @@
-export const API_URL:string = "https://alamen.yalashbab.com"
+export const API_URL:string = "https://admin.elalameinfestival.com"

@@ -50,25 +50,27 @@ const Home = () => {
       }, [dispatch]);
   
     useEffect(() => {
-        const handleSlideChange = () => {
-            const swiper = swiperRef.current.swiper;
-            swiper.slides.forEach((slide: any, index: number) => {
-                const slideIndex = swiper.slides.indexOf(swiper.slides[swiper.activeIndex]);
-                const distance = Math.abs(slideIndex - index);
-                let opacity = 1 - (distance * 0.4);
-                if (opacity < 0) opacity = 0;
-                slide.style.opacity = opacity;
-            });
-        };
-
-        const swiperInstance = swiperRef.current.swiper;
-        swiperInstance.on('slideChange', handleSlideChange);
-        handleSlideChange(); // Initialize opacity on first render
-
-        return () => {
-            swiperInstance.off('slideChange', handleSlideChange);
-        };
-    }, []);
+        if (topEvents && topEvents.length > 0) {
+            const handleSlideChange = () => {
+                const swiper = swiperRef.current.swiper;
+                swiper.slides.forEach((slide: any, index: number) => {
+                    const slideIndex = swiper.slides.indexOf(swiper.slides[swiper.activeIndex]);
+                    const distance = Math.abs(slideIndex - index);
+                    let opacity = 1 - (distance * 0.4);
+                    if (opacity < 0) opacity = 0;
+                    slide.style.opacity = opacity;
+                });
+            };
+    
+            const swiperInstance = swiperRef.current.swiper;
+            swiperInstance.on('slideChange', handleSlideChange);
+            handleSlideChange(); // Initialize opacity on first render
+    
+            return () => {
+                swiperInstance.off('slideChange', handleSlideChange);
+            };
+        }
+    }, [topEvents]);
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (musicEventsRef.current) {
@@ -110,62 +112,66 @@ const Home = () => {
             </section>
             <section className="music_events" ref={musicEventsRef}>
                 <div className="container events_wrapper">
-                    <Swiper
-                        ref={swiperRef}
-                        dir={translate(lang, "ltr", "rtl")}
-                        slidesPerView={3}
-                        // loop={true}
-                        className="mySwiper"
-                        navigation={{
-                            prevEl: prevRef.current,
-                            nextEl: nextRef.current,
-                        }}
-                        modules={[Navigation]}
-                        onBeforeInit={(swiper: any) => {
-                            swiper.params.navigation.prevEl = prevRef.current;
-                            swiper.params.navigation.nextEl = nextRef.current;
-                        }}
-                        breakpoints={{
-                            0: {
-                                slidesPerView: 1, // you can adjust this if needed for smaller screens
-                            },
-                            992: {
-                                slidesPerView: 3,
-                                loop: true
-                            },
-                        }}
-                        >
-                        {
-                            topEvents &&  topEvents?.map((item) => (
-                                <SwiperSlide key={item.item.id} className='hide'>
-                                    {item.item.type === 'Event' ? (
-                                        <>
-                                            <Link to={"/event/" + item.item.id }>
-                                                <img src={API_URL + item.item.thumbnail } alt={translate(lang, item.item.title_ar, item.item.title)} />
-                                            </Link>
-                                            <div className="text">
-                                                <Link to={"/event/" + item.item.id }>
-                                                    <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
-                                                </Link>
-                                                <Link to={"/location/" + item.item.location?.id }>
-                                                    <span>{translate(lang, item.item.location?.title_ar, item.item.location?.title)}</span>
-                                                </Link>
-                                            </div>
-                                        </>
-                                    ) : item.item.type === 'Ad' ? (
-                                        <>
-                                        <a href={item.item.link} target='_blank'>
-                                            <img src={API_URL + item.item.photo_path} alt={translate(lang, item.item.title_ar, item.item.title)} />
-                                            <div className="text">
-                                                <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
-                                            </div>
-                                        </a>
-                                        </>
-                                    ) : null}
-                                </SwiperSlide>
-                            ))
-                        }
-                    </Swiper>
+                    {
+                        (topEvents && topEvents.length > 0) && (
+                            <Swiper
+                                ref={swiperRef}
+                                dir={translate(lang, "ltr", "rtl")}
+                                slidesPerView={3}
+                                // loop={true}
+                                className="mySwiper"
+                                navigation={{
+                                    prevEl: prevRef.current,
+                                    nextEl: nextRef.current,
+                                }}
+                                modules={[Navigation]}
+                                onBeforeInit={(swiper: any) => {
+                                    swiper.params.navigation.prevEl = prevRef.current;
+                                    swiper.params.navigation.nextEl = nextRef.current;
+                                }}
+                                breakpoints={{
+                                    0: {
+                                        slidesPerView: 1, // you can adjust this if needed for smaller screens
+                                    },
+                                    992: {
+                                        slidesPerView: 3,
+                                        loop: true
+                                    },
+                                }}
+                                >
+                                {
+                                    topEvents &&  topEvents?.map((item) => (
+                                        <SwiperSlide key={item.item.id} className='hide'>
+                                            {item.item.type === 'Event' ? (
+                                                <>
+                                                    <Link to={"/event/" + item.item.id }>
+                                                        <img src={API_URL + item.item.thumbnail } alt={translate(lang, item.item.title_ar, item.item.title)} />
+                                                    </Link>
+                                                    <div className="text">
+                                                        <Link to={"/event/" + item.item.id }>
+                                                            <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
+                                                        </Link>
+                                                        <Link to={"/location/" + item.item.location?.id }>
+                                                            <span>{translate(lang, item.item.location?.title_ar, item.item.location?.title)}</span>
+                                                        </Link>
+                                                    </div>
+                                                </>
+                                            ) : item.item.type === 'Ad' ? (
+                                                <>
+                                                <a href={item.item.link} target='_blank'>
+                                                    <img src={API_URL + item.item.photo_path} alt={translate(lang, item.item.title_ar, item.item.title)} />
+                                                    <div className="text">
+                                                        <p>{translate(lang, item.item.title_ar, item.item.title)}</p>
+                                                    </div>
+                                                </a>
+                                                </>
+                                            ) : null}
+                                        </SwiperSlide>
+                                    ))
+                                }
+                            </Swiper>
+                        )
+                    }
                     <div className="text_wrapper">
                         <div>
                             <span>
@@ -185,52 +191,57 @@ const Home = () => {
                                 {translate(lang, "أحداث فريدة من نوعها", "Unique Events")}
                             </p>
                         </div>
-                        <div className="navigation">
-                            <button ref={prevRef}>
-                                {
-                                    lang == "en" && (
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M5 12l14 0" />
-                                        <path d="M5 12l6 6" />
-                                        <path d="M5 12l6 -6" />
-                                        </svg>
-                                    )
-                                }
-                                {
-                                    lang == "ar" && (
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M5 12l14 0" />
-                                        <path d="M13 18l6 -6" />
-                                        <path d="M13 6l6 6" />
-                                        </svg>
-                                    )
-                                }
-                            </button>
-                            <button ref={nextRef} >
-                                {
-                                    lang == "ar" && (
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M5 12l14 0" />
-                                        <path d="M5 12l6 6" />
-                                        <path d="M5 12l6 -6" />
-                                        </svg>
-                                    )
-                                }
-                                {
-                                    lang == "en" && (
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M5 12l14 0" />
-                                        <path d="M13 18l6 -6" />
-                                        <path d="M13 6l6 6" />
-                                        </svg>
-                                    )
-                                }
-                            </button>
-                        </div>
+                        {
+                            (topEvents && topEvents.length > 0) && (
+
+                                <div className="navigation">
+                                    <button ref={prevRef}>
+                                        {
+                                            lang == "en" && (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M5 12l14 0" />
+                                                <path d="M5 12l6 6" />
+                                                <path d="M5 12l6 -6" />
+                                                </svg>
+                                            )
+                                        }
+                                        {
+                                            lang == "ar" && (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M5 12l14 0" />
+                                                <path d="M13 18l6 -6" />
+                                                <path d="M13 6l6 6" />
+                                                </svg>
+                                            )
+                                        }
+                                    </button>
+                                    <button ref={nextRef} >
+                                        {
+                                            lang == "ar" && (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M5 12l14 0" />
+                                                <path d="M5 12l6 6" />
+                                                <path d="M5 12l6 -6" />
+                                                </svg>
+                                            )
+                                        }
+                                        {
+                                            lang == "en" && (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M5 12l14 0" />
+                                                <path d="M13 18l6 -6" />
+                                                <path d="M13 6l6 6" />
+                                                </svg>
+                                            )
+                                        }
+                                    </button>
+                                </div>
+                                )
+                        }
                     </div>
                 </div>
                 <div className="container top_sposor_wrapper">
